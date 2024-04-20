@@ -1,0 +1,40 @@
+{
+  "private": true,
+  "name": "neon_crisp",
+  "version": "0.1.0",
+  "description": "ts game",
+  "author": "Cole Smith <smithcole@protonmail.com>",
+  "keywords": [
+    "typescript",
+    "lua",
+    "defold"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "boilerPlate": "node boilerPlateGen.js",
+    "gendocs": "node docsGen.js",
+    "setupTests": "node setupTests.js test",
+    "setmain": "node setupTests.js main",
+    "resolve": "library resolve",
+    "build": "tstl",
+    "lint": "eslint src",
+    "dev": "tstl --watch"
+  },
+  "devDependencies": {
+    "@ts-defold/library": "^0.1.1",
+    "@ts-defold/tstl-export-as-global": "^1.0.1",
+    "@ts-defold/tstl-userdata-sugar": "^1.0.1",
+    "@ts-defold/types": "^1.2.20",
+    "@typescript-eslint/eslint-plugin": "^5.60.1",
+    "@typescript-eslint/parser": "^5.60.1",
+    "eslint": "^8.43.0",
+    "tstl-trim-extensions": "^1.0.3",
+    "typedoc": "^0.25.9",
+    "typedoc-plugin-markdown": "^3.17.1",
+    "typescript": "~5.1.0",
+    "typescript-to-lua": "~1.16.0",
+    "typescript-tstl-plugin": "^0.3.0"
+  }
+}

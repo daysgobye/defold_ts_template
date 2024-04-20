@@ -1,0 +1,49 @@
+name: ios_build_CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout 
+      uses: actions/checkout@v2
+    - name: installcert
+      uses: apple-actions/import-codesign-certs@v2
+      with: 
+        p12-file-base64: 'base 64 of your cert file'
+        p12-password: '1234'
+      
+    - name: Setup Node
+      uses: actions/setup-node@v2.1.2
+      with:
+        node-version: 16.x
+      
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Setup Defold
+      run: wget "https://github.com/defold/defold/releases/download/1.7.0/bob.jar" && chmod 777 ./bob.jar
+      
+    - name: Install Dependencies
+      run:  npm install
+      
+    - name: Genrate lua w/ ts-defold
+      run:  npm run build&&npm run setmain
+    - name: Build 
+# You need to have the testflight.mobileprovision in your app dir
+      run: 'java -jar ../bob.jar  --root ./app --archive --platform arm64-ios --bundle-output ./build --identity "Apple Distribution: you key name here" --mp app/testflight.mobileprovision --verbose resolve distclean build bundle'
+    - name: Archive build results
+      uses: actions/upload-artifact@v4
+      with:
+        name: ios_build
+        path: game_client/build
+  

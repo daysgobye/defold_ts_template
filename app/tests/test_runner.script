@@ -1,0 +1,8 @@
+local combatOver_test = require("code.combatOver.combatOver_test")
+local deftest = require "deftest.deftest"
+
+
+function init(self)
+	deftest.add(combatOver_test.default)
+	deftest.run()
+end

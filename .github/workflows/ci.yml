@@ -1,0 +1,39 @@
+name: ci_tests
+
+on: [push]
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+
+    steps:
+    - name: Checkout 
+      uses: actions/checkout@v2
+      
+    - name: Setup Node
+      uses: actions/setup-node@v2.1.2
+      with:
+        node-version: 16.x
+      
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Setup Defold
+      uses: dapetcu21/setup-defold@v3.0.2
+      
+    - name: Install Dependencies
+      run:  npm install
+      
+    - name: Genrate lua w/ ts-defold
+      run:  npm run setupTests&&npm run resolve&&npm run build
+
+    - name: test
+      run: 'cd app&&java -jar $BOB --variant=debug resolve distclean build && dmengine_headless'
+
+
