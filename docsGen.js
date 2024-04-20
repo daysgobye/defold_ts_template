@@ -19,12 +19,9 @@ async function main() {
         tsFiles.push(p)
     }
     const files = tsFiles.join(" ")
-    const command = `npx typedoc --plugin typedoc-plugin-markdown --out ../docs_site/docs/genarated ${files}`
+    const command = `npx typedoc --plugin typedoc-plugin-markdown --out ./docs/genarated ${files}`
     let stdout = execSync(command);
-    fs.rename('../docs_site/docs/genarated/README.md', '../docs_site/docs/genarated/Genarated.md', function (err) {
-        if (err) console.log('ERROR: ' + err);
-    });
-    // console.log(command)
+
 
 }
 
